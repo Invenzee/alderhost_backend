@@ -18,7 +18,7 @@ const env = {
   jwtSecret: required("JWT_SECRET"),
   adminEmail: required("ADMIN_EMAIL").toLowerCase(),
   adminPassword: required("ADMIN_PASSWORD"),
-  frontendOrigin: process.env.FRONTEND_ORIGIN?.trim() || "http://localhost:3000",
+  frontendOrigin: (process.env.FRONTEND_ORIGIN?.trim() || "http://localhost:3000").replace(/\/+$/, ""),
   paymentsMode: process.env.PAYMENTS_MODE?.trim() || "test",
   registerEnabled: process.env.REGISTER_ENABLED?.trim() === "true",
   port: Number(process.env.PORT || 4000),
