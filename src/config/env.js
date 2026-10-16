@@ -1,11 +1,13 @@
 const path = require("path");
 require("dotenv").config({ path: path.join(__dirname, "../../.env") });
 
+const missing = [];
+
 function required(name) {
   const value = process.env[name];
   if (!value || !String(value).trim()) {
-    console.error(`Missing required environment variable ${name}`);
-    process.exit(1);
+    missing.push(name);
+    return "";
   }
   return String(value).trim();
 }
@@ -23,4 +25,4 @@ const env = {
   nodeEnv: process.env.NODE_ENV || "development",
 };
 
-module.exports = { env };
+module.exports = { env, missing };

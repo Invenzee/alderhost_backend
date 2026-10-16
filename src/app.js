@@ -15,8 +15,15 @@ const adminRoutes = require("./routes/admin");
 function createApp() {
   const app = express();
   app.set("trust proxy", 1);
-  app.use(helmet());
-  app.use(cors({ origin: env.frontendOrigin, credentials: true }));
+  app.use(helmet({ crossOriginResourcePolicy: { policy: "cross-origin" } }));
+  app.use(
+    cors({
+      origin: env.frontendOrigin,
+      credentials: true,
+      methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+      allowedHeaders: ["Content-Type"],
+    })
+  );
   app.use(express.json({ limit: "1mb" }));
   app.use(cookieParser());
 
